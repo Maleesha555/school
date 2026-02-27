@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System | Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span>Sri Rahula School</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active"><i class="fa-solid fa-users"></i> Students Directory</a>
+                <a href="#"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="#"><i class="fa-solid fa-gear"></i> System Settings</a>
+                <div class="spacer"></div>
+                <a href="#" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Lock System</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search by Admission ID or Full Name...">
+                </div>
+                <div class="user-profile">
+                    <div class="avatar-info">
+                        <span class="role">System Administrator</span>
+                    </div>
+                    <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
+                </div>
+            </header>
+
+            <div class="scrollable">
+                <div class="content-header">
+                    <div>
+                        <h1>Students Directory</h1>
+                        <p>Manage all student admissions, records, and guardian details</p>
+                    </div>
+                    <button id="addStudentBtn" class="primary-btn">
+                        <i class="fa-solid fa-plus"></i> New Admission
+                    </button>
+                </div>
+
+                <div class="table-container glass-panel">
+                    <table id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>Admission ID</th>
+                                <th>Full Name</th>
+                                <th>Age</th>
+                                <th>Guardian Name</th>
+                                <th>Guardian Contact</th>
+                                <th>Admitted On</th>
+                                <th class="actions-col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Student rows injected via JS -->
+                        </tbody>
+                    </table>
+                    <div id="noDataMessage" class="no-data hidden">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-folder-open"></i>
+                        </div>
+                        <h3>No students found</h3>
+                        <p>There are no students matching your search criteria.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Add/Edit Student -->
+    <div id="studentModal" class="modal">
+        <div class="modal-content glass-panel glow">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle">Register New Student</h2>
+                    <p class="subtitle" id="modalSubtitle">Enter the student's admission details below.</p>
+                </div>
+                <button id="closeModalBtn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="studentForm">
+                <input type="hidden" id="editStudentId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="admissionId">Admission ID</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-id-card"></i>
+                            <input type="text" id="admissionId" required placeholder="Ex: ADM-2023-001">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="fullName" required placeholder="Student's complete name">
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="address">Residential Address</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <input type="text" id="address" required placeholder="House number, street, city">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">Date of Birth</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-cake-candles"></i>
+                            <input type="date" id="birthday" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="admissionDate">Admission Date</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <input type="date" id="admissionDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-divider full-width">Guardian Information</div>
+
+                    <div class="form-group">
+                        <label for="guardianName">Guardian's Name</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <input type="text" id="guardianName" required placeholder="Parent or guardian name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="guardianContact">Guardian's Contact</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="text" id="guardianContact" required placeholder="Phone number">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancelBtn" class="secondary-btn">Cancel</button>
+                    <button type="submit" class="primary-btn"><i class="fa-solid fa-check"></i> Save Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
