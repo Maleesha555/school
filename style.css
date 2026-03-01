@@ -176,6 +176,41 @@ body {
     font-weight: 500;
 }
 
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--panel-bg);
+    border: 2px solid var(--panel-border);
+    border-radius: 12px;
+    margin-top: 5px;
+    max-height: 350px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-item {
+    padding: 12px 20px;
+    color: var(--text-main);
+    cursor: pointer;
+    font-weight: 500;
+    border-bottom: 1px solid var(--bg-color);
+    transition: all 0.2s ease;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item:hover {
+    background: var(--panel-bg);
+    /* Keep white background */
+    color: var(--text-main);
+    font-weight: 700;
+}
+
 .user-profile {
     display: flex;
     align-items: center;
@@ -368,6 +403,14 @@ tbody tr:hover td {
 
 tbody td.highlight {
     font-weight: 700;
+}
+
+#marksTableBody tr:hover {
+    background: transparent;
+}
+
+#marksTableBody td {
+    color: var(--text-alt);
 }
 
 .no-data {
